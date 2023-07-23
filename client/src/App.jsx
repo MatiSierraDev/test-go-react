@@ -7,7 +7,7 @@ const App = () => {
       <h1>Hello word!</h1>
       <button
         onClick={async () => {
-          const resp = await fetch("http://localhost:3000/user");
+          const resp = await fetch("/user");
           const data = await resp.json();
           console.log(data);
         }}
