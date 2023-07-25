@@ -7,7 +7,7 @@ const App = () => {
       <h1>Hello word!</h1>
       <button
         onClick={async () => {
-          const resp = await fetch("/user");
+          const resp = await fetch(import.meta.export.VITE_PORT + "/user");
           const data = await resp.json();
           console.log(data);
         }}
