@@ -14,7 +14,7 @@ var (
 	POSTGRES_PORT     int    = 5432
 	POSTGRES_USER     string = "postgres"
 	POSTGRES_PASSWORD string = "rootroot"
-	POSTGRES_DBNAME   string = "pqreact"
+	POSTGRES_DBNAME   string = "personajes_crud"
 )
 
 func DBconfig() (*sql.DB, error) {
@@ -33,6 +33,14 @@ func DBconfig() (*sql.DB, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	defer DB.Close()
+
+	err = DB.Ping()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("\nSuccessfully connected to database!\n")
 
 	return DB, err
 }
