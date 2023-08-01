@@ -5,10 +5,11 @@ import (
 	"log"
 	"os"
 
+	"github.com/MatiSierraDev/6-react-fiber/models"
 	"github.com/MatiSierraDev/6-react-fiber/pkg/config"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/google/uuid"
+	_ "github.com/google/uuid"
 )
 
 func main() {
@@ -25,19 +26,6 @@ func main() {
 	app.Static("/", "./client/dist")
 
 	config.DBconfig()
-
-	type Task struct {
-		Id          uuid.UUID `json:"id"`
-		Title       string    `json:"title"`
-		Description string    `json:"description"`
-	}
-
-	type user struct {
-		Id    uuid.UUID `json:"id"`
-		Name  string    `json:"name"`
-		Email string    `json:"email"`
-		Tasks []Task    `json:"tasks"`
-	}
 
 	app.Get("/test", func(c *fiber.Ctx) error {
 
@@ -66,12 +54,13 @@ func main() {
 
 		defer rows.Close()
 
-		var users []user
+		var users []models.User
 		// var tasks Task
 
 		for rows.Next() {
-			var user user
-			var task Task
+			var user models.User
+			var task models.Task
+
 			err := rows.Scan(&user.Id, &user.Name, &user.Email, &task.Id, &task.Title, &task.Description)
 			if err != nil {
 				log.Fatal(err)
