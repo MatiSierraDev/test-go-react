@@ -13,8 +13,8 @@ var (
 	POSTGRES_HOST     string = "localhost"
 	POSTGRES_PORT     int    = 5432
 	POSTGRES_USER     string = "postgres"
-	POSTGRES_PASSWORD string = "rootroot"
-	POSTGRES_DBNAME   string = "personajes_crud"
+	POSTGRES_PASSWORD string = "secretpassword"
+	POSTGRES_DBNAME   string = "psql-react"
 )
 
 func DBconfig() (*sql.DB, error) {
@@ -33,8 +33,6 @@ func DBconfig() (*sql.DB, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	defer DB.Close()
 
 	err = DB.Ping()
 	if err != nil {
