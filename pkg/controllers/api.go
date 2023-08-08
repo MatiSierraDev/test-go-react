@@ -47,3 +47,36 @@ func (a *Api) GetAlls(ctx *fiber.Ctx) error {
 	return ctx.Status(200).JSON(fiber.Map{
 		"data": users})
 }
+func (a *Api) CreateUser(ctx *fiber.Ctx) error {
+
+	DB, err := config.DBconfig()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var newUser models.User
+
+	newUser.Name = "Messi"
+	newUser.Email = "Messi@gmail.com"
+
+	query := `INSERT INTO users(user_name, user_email)
+						VALUES ($1,$2) RETURNING *`
+
+	// result, err := DB.Exec(query, newUser.Name, newUser.Email)
+
+	//guardo(&scan) los datos que me devuelve la DB en mi variable
+	err = DB.QueryRow(query, newUser.Name, newUser.Email).Scan(&newUser.Id, &newUser.Name, &newUser.Email)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// data, err := result.RowsAffected()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return ctx.JSON(&newUser)
+}
