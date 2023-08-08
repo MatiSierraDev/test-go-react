@@ -18,7 +18,7 @@ func (a *Api) GetAlls(ctx *fiber.Ctx) error {
 
 	query := `SELECT users.user_id, user_name, user_email, task_id, task_title, task_description
 						FROM users
-						INNER JOIN tasks
+						LEFT JOIN tasks
 						on users.user_id = tasks.user_id;`
 
 	rows, err := db.Query(query)
