@@ -41,8 +41,8 @@ func main() {
 
 		var newUser models.User
 
-		newUser.Name = "BlacKI"
-		newUser.Email = "BlacKI@gmail.com"
+		newUser.Name = "Chinchu"
+		newUser.Email = "Chinchu@gmail.com"
 
 		query := `INSERT INTO users(user_name, user_email)
 						VALUES ($1,$2) RETURNING *`
